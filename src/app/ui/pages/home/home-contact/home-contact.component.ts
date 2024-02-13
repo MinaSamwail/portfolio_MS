@@ -38,7 +38,7 @@ export class HomeContactComponent implements OnInit {
   /* ********************************************************************************************
     *                anims
     */
-  _mTriggerAnim?= 'false'
+  _mTriggerAnim? = 'false'
 
 
 
@@ -50,7 +50,7 @@ export class HomeContactComponent implements OnInit {
 
   @ViewChild("formDirective", { static: true }) private formDirective?: NgForm;
 
-  
+
 
   constructor(public el: ElementRef,
     private _ngZone: NgZone,
@@ -94,7 +94,7 @@ export class HomeContactComponent implements OnInit {
 
   _onSubmit(): void {
     this._mInProgress = true;
- 
+
     this.openProgress();
     const value = this._mFormGroup.getRawValue();
     // value.fromUrl = this.previousRoute;
@@ -102,7 +102,7 @@ export class HomeContactComponent implements OnInit {
     // console.log("onSubmit Contact: ", value);
     setTimeout(() => {
       // console.log("sd");
-      
+
       this.recaptchaV3Service.execute("importantAction").subscribe(token => {
         this._resolvedCaptcha(token, value);
         // this.addContact(value);
@@ -114,15 +114,15 @@ export class HomeContactComponent implements OnInit {
     let time = new Date().valueOf();
 
     console.log("time1: ", time);
-    value.token= token;
+    value.token = token;
 
     if (token) {
-   
+
       time = new Date().valueOf();
       // console.log("time2: ", time);
       console.log("value from resolved:", token);
       this.addContact(value);
-      
+
     } else {
       this.closeProgress();
     }
@@ -130,19 +130,19 @@ export class HomeContactComponent implements OnInit {
   }
 
   addContact(data: ParamPostContact) {
-    
+
     this.apiContactService.add(data).subscribe({
-      next :  (res: ParamPostContact) => {
-          // console.log("contact res is: ", res);
-          // if (res) {
-          //   this.snackBar.open("Contact query successfully send!", null, {
-          //     duration: 4000
-          //   });
-          // }
-          this.resetForm();
-          this.closeProgress();
-          this.openSuccess();
-        },
+      next: (res: ParamPostContact) => {
+        // console.log("contact res is: ", res);
+        // if (res) {
+        //   this.snackBar.open("Contact query successfully send!", null, {
+        //     duration: 4000
+        //   });
+        // }
+        this.resetForm();
+        this.closeProgress();
+        this.openSuccess();
+      },
 
       error: (error) => {
         console.error(error);
@@ -161,7 +161,7 @@ export class HomeContactComponent implements OnInit {
     //   this._mFormGroup.get("buildRequirements")
     // )) as FormArray;
     // buildRequirements.clear();
-   
+
 
     // this._mInputLabelImage = null;
     // this.updateLabelActive();
@@ -194,7 +194,7 @@ export class HomeContactComponent implements OnInit {
 
       }),
       scan<number, boolean>((acc: number | boolean, val: number) => (val >= this._mThreshold || (acc ? val > 0 : false))),
-      // Distincts the resulting triggers 
+      // Distincts the resulting triggers
       distinctUntilChanged(),
       // Stop taking the first on trigger when aosOnce is set
       takeWhile(trigger => {
